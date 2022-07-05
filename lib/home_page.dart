@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:weather/views/cities_list.dart';
 import 'package:weather/views/welcome_page.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/sharedpreferences/shared_city_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,29 +41,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Cities',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.redAccent,
-        onTap: _onItemTapped,
-      ),
-      body: Center(
-        child: _pages.elementAt(_selectedIndex),
-        /* children: [
-          if (_selectedIndex == 0) ...[WeatherList()],
-          if (_selectedIndex == 1) ...[CitiesList()],
-          if (_selectedIndex == 2) ...[Settings()],
-        ], */
+    return Provider(
+      create: (_) => CitiesListModel(prefs: Provider.of(context)),
+      child: Scaffold(
+              bottomNavigationBar: BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.search),
+                  label: 'Search',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.business),
+                  label: 'Cities',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              selectedItemColor: Colors.redAccent,
+              onTap: _onItemTapped,
+            ),
+            body: Center(
+              child: _pages.elementAt(_selectedIndex),
+            ),
       ),
     );
   }
