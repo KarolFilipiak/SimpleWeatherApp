@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../data/city_data.dart';
 import 'package:weather_icons/weather_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/sharedpreferences/shared_city_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CityDetails extends StatefulWidget {
@@ -109,7 +111,13 @@ class _CityDetailsState extends State<CityDetails> {
     }
 
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return Consumer<CitiesListModel>(builder: (context, model, child) 
+    {
+      List<String> _providedObj = model.sharedCityList;
+    
+    
+      return Scaffold
+      (
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 89, 7, 121),
         ),
@@ -245,10 +253,12 @@ class _CityDetailsState extends State<CityDetails> {
                   ],
                 ),
               )
-            : Container(
+            : Container
+              (
                 padding: EdgeInsets.only(top: 10),
                 margin: EdgeInsets.only(right: 12, left: 12, top: 12),
-                child: Column(
+                child: Column
+                (
                   children: [
                     Container(
                       height: size.height * 0.8,
@@ -423,6 +433,8 @@ class _CityDetailsState extends State<CityDetails> {
                     ),
                   ],
                 ),
-              ));
+              )
+      );
+  });
   }
 }
