@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:weather/views/cities_list.dart';
 import 'package:weather/views/welcome_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,7 +27,10 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    _pages = <Widget>[WelcomePage(), WelcomePage()];
+    _pages = <Widget>[
+      WelcomePage(), 
+      CitiesList()
+      ];
 
     print('init_home');
   }

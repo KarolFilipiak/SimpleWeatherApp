@@ -38,6 +38,8 @@ dependencies:
   weather_icons: ^3.0.0
   top_snackbar_flutter: ^2.1.0
   url_launcher: ^6.1.4
+  realm: ^0.3.1+beta
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

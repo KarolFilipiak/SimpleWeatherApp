@@ -51,10 +51,9 @@ class _WelcomePageState extends State<WelcomePage> {
           const SizedBox(width: 10),
           const Icon(Icons.search),
         ]),
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(255, 89, 7, 121),
         automaticallyImplyLeading: false,
       ),
-      backgroundColor: Colors.lightGreen,
       body: _isLoading
       ? Center(
           child: CircularProgressIndicator(),
@@ -64,7 +63,8 @@ class _WelcomePageState extends State<WelcomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text('Welcome', style: TextStyle(fontSize: 40)),
+            const Text('Welcome to my app!', style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900, color: Color.fromARGB(255, 200, 200, 200))),
+            const Text('Type city name and tap a button to start', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900, color: Color.fromARGB(255, 200, 200, 200))),
             const SizedBox(
               height: 20,
             ),

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../data/city_data.dart';
 import 'package:weather_icons/weather_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CityDetails extends StatefulWidget {
   final CityData cityDet;
@@ -17,6 +18,38 @@ class _CityDetailsState extends State<CityDetails> {
   int mode = 0;
   num skala1 = 0.3;
   bool _isLoading = true;
+  List<String> _obj = [];
+  String saveload = 'SAVE';
+
+  @override
+  void initState() {
+    super.initState();
+    loadSettings();
+  }
+
+  saveSettings() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('savedCities', _obj);
+    print("DETAILS SAVE: ${_obj}");
+  }
+
+  loadSettings() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var objFromDb = prefs.getStringList('savedCities') ?? [];
+    setState(() {
+      _obj = objFromDb;
+      _isLoading = false;
+
+      if (objFromDb.contains(widget.cityDet.city_name)){
+        saveload = 'DELETE';
+      }
+      else 
+      {
+        saveload = 'SAVE';
+      }
+    });
+    print("DETAILS LOAD: ${_obj}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +111,8 @@ class _CityDetailsState extends State<CityDetails> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
+          backgroundColor: Color.fromARGB(255, 89, 7, 121),
         ),
-        backgroundColor: Colors.greenAccent,
         body: _isLoading
           ? Center(
               child: CircularProgressIndicator(),
@@ -95,7 +127,7 @@ class _CityDetailsState extends State<CityDetails> {
                       height: size.height * 0.8,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: Colors.lightGreen,
+                        color: Color.fromARGB(255, 149, 71, 212),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       alignment: Alignment.center,
@@ -116,7 +148,7 @@ class _CityDetailsState extends State<CityDetails> {
                                 onPressed: () => _onItemTapped(0),
                                 child: Text("Teraz"),
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  primary: Color.fromARGB(255, 71, 9, 122),
                                 ),
                               ),
                               SizedBox(width: 10),
@@ -124,7 +156,7 @@ class _CityDetailsState extends State<CityDetails> {
                                 onPressed: () => _onItemTapped(1),
                                 child: Text("Dzisiaj"),
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  primary: Color.fromARGB(255, 71, 9, 122),
                                 ),
                               ),
                               SizedBox(width: 10),
@@ -132,7 +164,7 @@ class _CityDetailsState extends State<CityDetails> {
                                 onPressed: () => _onItemTapped(2),
                                 child: Text("Jutro"),
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  primary: Color.fromARGB(255, 71, 9, 122),
                                 ),
                               ),
                               SizedBox(width: 10),
@@ -140,10 +172,34 @@ class _CityDetailsState extends State<CityDetails> {
                                 onPressed: () => _onItemTapped(3),
                                 child: Text("Pojutrze"),
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  primary: Color.fromARGB(255, 71, 9, 122),
                                 ),
                               ),
                             ],
+                          ),
+                          ElevatedButton(
+                                onPressed: () => {
+                                  if(_obj.contains(cityName)){
+                                    setState(() {
+                                      _obj.remove(cityName);
+                                      saveSettings();
+                                      loadSettings();
+                                    }
+                                    ),
+                                  }
+                                  else{
+                                    setState(() {
+                                      _obj.add(cityName);
+                                      saveSettings();
+                                      loadSettings();
+                                    }
+                                    ),
+                                  }
+                                },
+                                child: Text(saveload),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color.fromARGB(255, 100, 19, 167),
+                                ),
                           ),
                           Spacer(flex: 1,),
                           Image.network(
@@ -198,7 +254,7 @@ class _CityDetailsState extends State<CityDetails> {
                       height: size.height * 0.8,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: Colors.lightGreen,
+                        color: Color.fromARGB(255, 149, 71, 212),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       alignment: Alignment.center,
@@ -219,7 +275,7 @@ class _CityDetailsState extends State<CityDetails> {
                                 onPressed: () => _onItemTapped(0),
                                 child: Text("Teraz"),
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  primary: Color.fromARGB(255, 71, 9, 122),
                                 ),
                               ),
                               SizedBox(width: 10),
@@ -227,7 +283,7 @@ class _CityDetailsState extends State<CityDetails> {
                                 onPressed: () => _onItemTapped(1),
                                 child: Text("Dzisiaj"),
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  primary: Color.fromARGB(255, 71, 9, 122),
                                 ),
                               ),
                               SizedBox(width: 10),
@@ -235,7 +291,7 @@ class _CityDetailsState extends State<CityDetails> {
                                 onPressed: () => _onItemTapped(2),
                                 child: Text("Jutro"),
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  primary: Color.fromARGB(255, 71, 9, 122),
                                 ),
                               ),
                               SizedBox(width: 10),
@@ -243,7 +299,7 @@ class _CityDetailsState extends State<CityDetails> {
                                 onPressed: () => _onItemTapped(3),
                                 child: Text("Pojutrze"),
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  primary: Color.fromARGB(255, 71, 9, 122),
                                 ),
                               ),
                             ],
