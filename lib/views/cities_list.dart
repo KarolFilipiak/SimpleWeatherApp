@@ -112,7 +112,7 @@ class _CitiesListState extends State<CitiesList> {
                               fontSize: 15, 
                               fontFamily: "ComicSans",
                               fontWeight: FontWeight.w900,
-                              color: Color.fromARGB(255, 8, 218, 218)
+                              color: Color.fromARGB(255, 231, 123, 245)
                             ),
                         ),
                         ), 
@@ -129,7 +129,7 @@ class _CitiesListState extends State<CitiesList> {
                           child: Text(
                             "SHOW WEATHER",
                             style: TextStyle(
-                              color: Color.fromARGB(255, 2, 252, 35),
+                              color: Color.fromARGB(255, 241, 69, 247),
                               fontFamily: "ComicSans",
                               fontWeight: FontWeight.bold,
                             ),

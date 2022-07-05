@@ -304,6 +304,30 @@ class _CityDetailsState extends State<CityDetails> {
                               ),
                             ],
                           ),
+                          ElevatedButton(
+                            onPressed: () => {
+                              if(_obj.contains(cityName)){
+                                setState(() {
+                                  _obj.remove(cityName);
+                                  saveSettings();
+                                  loadSettings();
+                                }
+                                ),
+                              }
+                              else{
+                                setState(() {
+                                  _obj.add(cityName);
+                                  saveSettings();
+                                  loadSettings();
+                                }
+                                ),
+                              }
+                            },
+                            child: Text(saveload),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromARGB(255, 100, 19, 167),
+                            ),
+                          ),
                           Spacer(flex: 1,),
                           Image.network(
                             cityWeatherIcon,
