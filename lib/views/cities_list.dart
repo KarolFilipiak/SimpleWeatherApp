@@ -23,31 +23,17 @@ class _CitiesListState extends State<CitiesList> {
   @override
   void initState() {
     super.initState();
-    loadSettings();
-  }
-
-  saveSettings() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList('savedCities', _obj);
-    print("LIST SAVE: ${_obj}");
-  }
-
-  loadSettings() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var objFromDb = prefs.getStringList('savedCities') ?? [];
     setState(() {
-      _obj = objFromDb;
       _isLoading = false;
     });
-    print("LIST LOAD: ${_obj}");
-    
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Consumer<CitiesListModel>(
       builder: ((context, model, child) {
-        List<String> _providedObj = model.sharedCityList;
+      _obj = model.sharedCityList;
       
         return Scaffold(
           appBar: AppBar(

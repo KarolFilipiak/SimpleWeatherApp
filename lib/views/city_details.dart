@@ -23,35 +23,7 @@ class _CityDetailsState extends State<CityDetails> {
   List<String> _obj = [];
   String saveload = 'SAVE';
 
-  @override
-  void initState() {
-    super.initState();
-    loadSettings();
-  }
 
-  saveSettings() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList('savedCities', _obj);
-    print("DETAILS SAVE: ${_obj}");
-  }
-
-  loadSettings() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var objFromDb = prefs.getStringList('savedCities') ?? [];
-    setState(() {
-      _obj = objFromDb;
-      _isLoading = false;
-
-      if (objFromDb.contains(widget.cityDet.city_name)){
-        saveload = 'DELETE';
-      }
-      else 
-      {
-        saveload = 'SAVE';
-      }
-    });
-    print("DETAILS LOAD: ${_obj}");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,9 +85,16 @@ class _CityDetailsState extends State<CityDetails> {
     Size size = MediaQuery.of(context).size;
     return Consumer<CitiesListModel>(builder: (context, model, child) 
     {
-      List<String> _providedObj = model.sharedCityList;
-    
-    
+      _obj = model.sharedCityList;
+      if (model.sharedCityList.contains(cityName))
+      {
+        saveload = 'DELETE';
+      }
+      else 
+      {
+        saveload = 'SAVE';
+      }
+
       return Scaffold
       (
         appBar: AppBar(
@@ -185,24 +164,12 @@ class _CityDetailsState extends State<CityDetails> {
                               ),
                             ],
                           ),
+                          SizedBox(
+                            height:
+                                min(size.width * 0.01, size.height * 0.01)),
                           ElevatedButton(
                                 onPressed: () => {
-                                  if(_obj.contains(cityName)){
-                                    setState(() {
-                                      _obj.remove(cityName);
-                                      saveSettings();
-                                      loadSettings();
-                                    }
-                                    ),
-                                  }
-                                  else{
-                                    setState(() {
-                                      _obj.add(cityName);
-                                      saveSettings();
-                                      loadSettings();
-                                    }
-                                    ),
-                                  }
+                                  model.toggleList(cityName),
                                 },
                                 child: Text(saveload),
                                 style: ElevatedButton.styleFrom(
@@ -314,24 +281,12 @@ class _CityDetailsState extends State<CityDetails> {
                               ),
                             ],
                           ),
+                          SizedBox(
+                            height:
+                                min(size.width * 0.01, size.height * 0.01)),
                           ElevatedButton(
                             onPressed: () => {
-                              if(_obj.contains(cityName)){
-                                setState(() {
-                                  _obj.remove(cityName);
-                                  saveSettings();
-                                  loadSettings();
-                                }
-                                ),
-                              }
-                              else{
-                                setState(() {
-                                  _obj.add(cityName);
-                                  saveSettings();
-                                  loadSettings();
-                                }
-                                ),
-                              }
+                              model.toggleList(cityName),
                             },
                             child: Text(saveload),
                             style: ElevatedButton.styleFrom(
