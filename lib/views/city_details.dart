@@ -16,6 +16,7 @@ class CityDetails extends StatefulWidget {
 class _CityDetailsState extends State<CityDetails> {
   int mode = 0;
   num skala1 = 0.3;
+  bool _isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +67,7 @@ class _CityDetailsState extends State<CityDetails> {
       cityTempAvg = widget.cityDet.temperature_2dayslater_avg;
       cityRainChance = widget.cityDet.rain_chance_2dayslater;
     }
+    _isLoading = false;
 
     void _onItemTapped(int index) {
       setState(() {
@@ -79,7 +81,11 @@ class _CityDetailsState extends State<CityDetails> {
           backgroundColor: Colors.green,
         ),
         backgroundColor: Colors.greenAccent,
-        body: mode == 0
+        body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : mode == 0
             ? Container(
                 padding: EdgeInsets.only(top: 10),
                 margin: EdgeInsets.only(right: 12, left: 12, top: 12),

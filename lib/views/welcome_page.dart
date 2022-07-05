@@ -1,4 +1,7 @@
+
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:weather/views/city_details.dart';
 import 'package:weather/data/weather_getter.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -16,12 +19,47 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   final fieldTextControl = TextEditingController();
   String city = '';
+  bool _isLoading = true;
+
+  @override
+  void initState(){
+    super.initState();
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Icon(Icons.search),
+          const SizedBox(width: 10),
+          GestureDetector(
+            child: const Text(
+              "SEARCH",
+              style: TextStyle(
+                  fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+            ),
+            onDoubleTap: () async {
+              Uri url = Uri.parse("https://youtu.be/dQw4w9WgXcQ");
+              if (! await launchUrl(url)) print("link doesnt work");
+            },
+          ),
+          const SizedBox(width: 10),
+          const Icon(Icons.search),
+        ]),
+        backgroundColor: Colors.green,
+        automaticallyImplyLeading: false,
+      ),
       backgroundColor: Colors.lightGreen,
-      body: Center(
+      body: _isLoading
+      ? Center(
+          child: CircularProgressIndicator(),
+        )
+      : Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,6 +106,13 @@ class _WelcomePageState extends State<WelcomePage> {
                 }
                 else
                 {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  sleep(Duration(milliseconds: 100));
+                  
+                  setState(() {
+                    _isLoading = false;
+                  });
+                  
                   CityData weather = await WeatherApi.getWeather(null, city, true);
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -75,8 +120,9 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                   );
                   setState(() {
-                    fieldTextControl.clear();
                     city = '';
+                    fieldTextControl.clear();
+                    _isLoading = false;
                   });
                 }
               },

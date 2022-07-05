@@ -36,28 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Icon(Icons.sunny),
-          const SizedBox(width: 10),
-          GestureDetector(
-            child: const Text(
-              "POGODYNKA",
-              style: TextStyle(
-                  fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
-            ),
-            onDoubleTap: () async {
-              const url = "https://youtu.be/dQw4w9WgXcQ";
-              if (await canLaunch(url)) launch(url);
-            },
-          ),
-          const SizedBox(width: 10),
-          const Icon(Icons.sunny),
-        ]),
-        backgroundColor: Colors.green,
-        automaticallyImplyLeading: false,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
