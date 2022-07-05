@@ -89,7 +89,7 @@ class CityData {
         temperature_2dayslater_max:
             json["forecast"]["forecastday"][2]["day"]["maxtemp_c"] as num,
         rain_chance_2dayslater:
-            json["forecast"]["forecastday"][0]["day"]["daily_chance_of_rain"] as num,
+            json["forecast"]["forecastday"][2]["day"]["daily_chance_of_rain"] as num,
         weather_condition_2dayslater: json["forecast"]["forecastday"][2]["day"]["condition"]["text"] as String,
         weatherIcon: "https:" + json["current"]["condition"]["icon"] as String,
         weatherIcon_today: "https:" + json["forecast"]["forecastday"][0]["day"]
