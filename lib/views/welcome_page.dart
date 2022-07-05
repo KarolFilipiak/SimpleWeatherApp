@@ -132,7 +132,7 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
               child: const Text(
                 'Show weather',
-                style: TextStyle(fontFamily: 'ComicSans'),
+                style: TextStyle(fontFamily: 'ComicSans', fontWeight: FontWeight.bold),
               ),
             ),
           ],
