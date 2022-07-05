@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'city_search/welcome_page.dart';
+import 'package:weather/home_page.dart';
+import 'views/welcome_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
- 
-
   runApp(const MyApp());
 }
 
@@ -21,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.greenAccent,
       ),
-      home: const WelcomePage(),
+      home: const HomePage(),
     );
   }
 }

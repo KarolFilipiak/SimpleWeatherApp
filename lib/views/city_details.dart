@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'city_data.dart';
+import '../data/city_data.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 class CityDetails extends StatefulWidget {

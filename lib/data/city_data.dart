@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:http/http.dart';
-
 class CityData {
   late int? id;
   late String city_name;

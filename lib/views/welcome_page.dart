@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather/data/city_details.dart';
+import 'package:weather/views/city_details.dart';
 import 'package:weather/data/weather_getter.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
